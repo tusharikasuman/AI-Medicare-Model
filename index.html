@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Monitoring System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">HealthCare AI</div>
+        <div class="nav-links">
+            <a href="#dashboard" class="active">Dashboard</a>
+            <a href="#chat">AI Chat</a>
+            <a href="#monitoring">Health Monitoring</a>
+        </div>
+    </nav>
+
+    <main>
+        <section id="dashboard" class="section active">
+            <div class="container">
+                <h1>Health Monitoring Dashboard</h1>
+                <p class="subtitle">Monitor and update your health metrics in real-time.</p>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3>Blood Pressure</h3>
+                        <input type="text" id="bloodPressure" value="120/80" class="metric-input">
+                        <span class="unit">mmHg</span>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Heart Rate</h3>
+                        <input type="text" id="heartRate" value="72" class="metric-input">
+                        <span class="unit">bpm</span>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Weight</h3>
+                        <input type="text" id="weight" value="70" class="metric-input">
+                        <span class="unit">kg</span>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Temperature</h3>
+                        <input type="text" id="temperature" value="36.6" class="metric-input">
+                        <span class="unit">°C</span>
+                    </div>
+                </div>
+
+                <div class="update-section">
+                    <button id="updateMetrics" class="btn-primary">Update Health Metrics</button>
+                    <div id="updateStatus" class="status-message"></div>
+                </div>
+
+                <div class="nutrition-tracker">
+                    <h3>Nutrition Tracker</h3>
+                    <div class="nutrition-summary">
+                        <div class="nutrition-stat">
+                            <div class="nutrition-stat-value" id="caloriesConsumed">1,250</div>
+                            <div class="nutrition-stat-label">Calories Consumed</div>
+                        </div>
+                        <div class="nutrition-stat">
+                            <div class="nutrition-stat-value" id="caloriesGoal">2,000</div>
+                            <div class="nutrition-stat-label">Daily Goal</div>
+                        </div>
+                        <div class="nutrition-stat">
+                            <div class="nutrition-stat-value" id="waterIntake">1.5</div>
+                            <div class="nutrition-stat-label">Water (L)</div>
+                        </div>
+                        <div class="nutrition-stat">
+                            <div class="nutrition-stat-value" id="waterGoal">2.5</div>
+                            <div class="nutrition-stat-label">Daily Goal (L)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="nutrition-progress">
+                        <div class="nutrition-progress-item">
+                            <div class="nutrition-progress-label">
+                                <span>Calories</span>
+                                <span id="caloriesProgress">1,250 / 2,000</span>
+                            </div>
+                            <div class="nutrition-progress-bar">
+                                <div class="nutrition-progress-fill" id="caloriesProgressBar" style="width: 62.5%;"></div>
+                            </div>
+                        </div>
+                        <div class="nutrition-progress-item">
+                            <div class="nutrition-progress-label">
+                                <span>Water</span>
+                                <span id="waterProgress">1.5 / 2.5 L</span>
+                            </div>
+                            <div class="nutrition-progress-bar">
+                                <div class="nutrition-progress-fill" id="waterProgressBar" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="nutrition-meals">
+                        <h4>Today's Meals</h4>
+                        <div id="mealsList">
+                            <div class="nutrition-meal">
+                                <div class="nutrition-meal-name">Breakfast</div>
+                                <div class="nutrition-meal-calories">350 cal</div>
+                            </div>
+                            <div class="nutrition-meal">
+                                <div class="nutrition-meal-name">Lunch</div>
+                                <div class="nutrition-meal-calories">550 cal</div>
+                            </div>
+                            <div class="nutrition-meal">
+                                <div class="nutrition-meal-name">Dinner</div>
+                                <div class="nutrition-meal-calories">350 cal</div>
+                            </div>
+                        </div>
+                        
+                        <div class="nutrition-add-meal">
+                            <input type="text" id="mealName" placeholder="Meal name">
+                            <input type="number" id="mealCalories" placeholder="Calories">
+                            <button id="addMeal">Add Meal</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="period-tracker">
+                    <h3>Period Tracker</h3>
+                    <div class="period-calendar" id="periodCalendar">
+                        <!-- Calendar days will be added by JavaScript -->
+                    </div>
+                    <div class="period-stats">
+                        <div class="period-stat">
+                            <div class="period-stat-value" id="cycleLength">28</div>
+                            <div class="period-stat-label">Cycle Length (days)</div>
+                        </div>
+                        <div class="period-stat">
+                            <div class="period-stat-value" id="periodLength">5</div>
+                            <div class="period-stat-label">Period Length (days)</div>
+                        </div>
+                        <div class="period-stat">
+                            <div class="period-stat-value" id="nextPeriod">12</div>
+                            <div class="period-stat-label">Days until next period</div>
+                        </div>
+                    </div>
+                    <button id="updatePeriod" class="btn-primary" style="margin-top: 1rem; background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);">Update Period Data</button>
+                </div>
+
+                <div class="graph-section">
+                    <div class="graph-controls">
+                        <h3>Health Metrics History</h3>
+                        <div class="graph-filters">
+                            <select id="metricSelect">
+                                <option value="heartRate">Heart Rate</option>
+                                <option value="weight">Weight</option>
+                                <option value="temperature">Temperature</option>
+                            </select>
+                            <select id="timeRange">
+                                <option value="7">Last 7 days</option>
+                                <option value="14">Last 14 days</option>
+                                <option value="30">Last 30 days</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="graph-container">
+                        <canvas id="healthChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="history-card">
+                    <h3>Health Metrics Summary</h3>
+                    <p class="last-updated">Last updated: <span id="lastUpdated"></span></p>
+                    <div class="status-alert">
+                        Your health metrics are within normal ranges. Keep up the good work!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chat" class="section">
+            <div class="container">
+                <h1>AI Health Assistant</h1>
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Messages will be added here -->
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="userInput" placeholder="Ask about your health...">
+                        <button id="sendMessage" class="btn-primary">Send</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="monitoring" class="section">
+            <div class="container">
+                <h1>Health Monitoring</h1>
+                <form id="healthForm" class="health-form">
+                    <div class="form-group">
+                        <label for="activity">Activity Level</label>
+                        <select id="activity" required>
+                            <option value="sedentary">Sedentary</option>
+                            <option value="light">Light Activity</option>
+                            <option value="moderate">Moderate Activity</option>
+                            <option value="active">Very Active</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sleep">Sleep Hours</label>
+                        <input type="number" id="sleep" min="0" max="24" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mood">Mood</label>
+                        <select id="mood" required>
+                            <option value="great">Great</option>
+                            <option value="good">Good</option>
+                            <option value="neutral">Neutral</option>
+                            <option value="bad">Bad</option>
+                            <option value="terrible">Terrible</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="symptoms">Symptoms</label>
+                        <textarea id="symptoms" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="nutrition">Nutrition Notes</label>
+                        <textarea id="nutrition" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Submit Health Data</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html> 
